@@ -32,5 +32,5 @@ export function floatFormat(number?: string | number) {
     return
   }
   
-  return parseFloat(String(number).replace('.', '').replace(',', '.'))
+  return parseFloat(String(number).replaceAll('.', '').replaceAll(',', '.'))
 }

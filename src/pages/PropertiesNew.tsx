@@ -352,7 +352,11 @@ export function PropertiesNew() {
                   label={"Tipo"}
                   items={[
                     { text: "Apartamento", value: "apartamento" },
-                    { text: "Casa", value: "casa" }
+                    { text: "Casa", value: "casa" },
+                    { text: "Sitio", value: "sitio" },
+                    { text: "Fazenda", value: "fazenda" },
+                    { text: "Lote", value: "lote" },
+                    { text: "Galpão", value: "galpao" },
                   ]}
                   className="flex-1"
                   required
