@@ -363,6 +363,7 @@ export function PropertiesNew() {
                   name="image"
                   label="Foto do imóvel"
                   type="file"
+                  accept="image/png, image/gif, image/jpeg" 
                   className="flex-1"
                   required
                   onChange={(event) => setFormFields(old => ({ ...old, image: event.target.files && event.target.files[0] }))}
