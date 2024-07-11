@@ -77,8 +77,12 @@ export function ClientsNew() {
                 type="text"
                 className="flex-1"
                 required
+                mask={'(##) #####-####'}
                 value={formFields.phone}
-                onChange={(event) => setFormFields(old => ({ ...old, phone: event.target.value }))}
+                onChange={(event) => setFormFields(old => {
+                  return { ...old, phone: event.target.value}
+                }
+                )}
               />
             </div>
           </div>

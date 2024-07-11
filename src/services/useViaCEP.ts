@@ -7,8 +7,8 @@ type ViaCEPProp = {
 
 export function useViaCEP({ cep }: ViaCEPProp) {
   const endereco = useQuery({
-    queryKey: ["endereco"],
-    queryFn: () => axiosBack.get(`https://viacep.com.br/ws/${cep}/json`),
+    queryKey: ["endereco", cep],
+    queryFn: () => axiosBack.get(`https://viacep.com.br/ws/${String(cep).replace(/\D/g, "")}/json`),
     enabled: !!cep
   });
 

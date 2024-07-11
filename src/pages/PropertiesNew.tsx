@@ -11,6 +11,7 @@ import { useIBGE } from "../services/useIgbe";
 import { useProperties } from "../services/useProperties";
 import { useViaCEP } from "../services/useViaCEP";
 import { useAlertMessage } from "../stores/useAlertMessage";
+import { floatFormat, numberWithDotAndComma } from "../utils/functions";
 
 type PropertyForm = {
   owner: string,
@@ -64,7 +65,7 @@ export function PropertiesNew() {
     uf: formFields.uf
   })
   const { endereco } = useViaCEP({
-    cep: formFields.cep.length === 8 ? formFields.cep : ''
+    cep: formFields.cep.length === 10 ? formFields.cep : ''
   })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,10 +98,9 @@ export function PropertiesNew() {
         uf: '',
       }))
     }
-    if (valueCEP && valueCEP.length === 8) {
+    if (valueCEP && valueCEP.length === 10) {
       if (endereco.data?.data) {
         // setCepIsValid(true)
-        console.log(endereco.data?.data);
         if (endereco.data?.data.erro) {
           setFormFields(old => ({
             ...old,
@@ -126,8 +126,10 @@ export function PropertiesNew() {
     if (newFile.data?.data.path) {
       const propertyFormData = new FormData();
       const addressFormated = `${formFields.logradouro}, ${formFields.bairro}, ${formFields.complemento} - ${formFields.cidade}/${formFields.uf}`;
+      const value = floatFormat(formFields.value)?.toFixed(2).toString()
+
       propertyFormData.append('title', formFields.title);
-      propertyFormData.append('value', formFields.value);
+      propertyFormData.append('value', value!);
       propertyFormData.append('size', formFields.size);
       propertyFormData.append('rooms', formFields.rooms);
       propertyFormData.append('bathrooms', formFields.bathrooms);
@@ -138,7 +140,7 @@ export function PropertiesNew() {
       propertyFormData.append('address', addressFormated);
       newProperty.mutate(propertyFormData)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newFile.data?.data.path])
 
   useEffect(() => {
@@ -215,7 +217,8 @@ export function PropertiesNew() {
                   type="text"
                   className="w-full"
                   required
-                  maxLength={8}
+                  maxLength={10}
+                  mask={'##.###-###'}
                   value={formFields.cep}
                   onChange={(event) => setFormFields(old => ({ ...old, cep: event.target.value }))}
                 />
@@ -305,7 +308,7 @@ export function PropertiesNew() {
                   className="flex-1"
                   required
                   value={formFields.value}
-                  onChange={(event) => setFormFields(old => ({ ...old, value: event.target.value }))}
+                  onChange={(event) => setFormFields(old => ({ ...old, value: numberWithDotAndComma(event.target.value) }))}
                 />
                 <Input
                   name="size"
