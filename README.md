@@ -33,12 +33,12 @@ e abra o [http://localhost:5001/](http://localhost:3000/) no navegador para veri
 #### DOCKER
 Primeiro crie a imagem com o seguinte comando:
 ```
-  docker build -t front .
+  docker build -t mvp-front .
 ```
 
 depois rode a imagem com o seguinte comando:
 ```
-  docker run -p 0.0.0.0:3000:3000 --name front front
+  docker run -p 0.0.0.0:3000:3000 --name mvp-front mvp-front
 ```
 
 e abra o [http://localhost:5001/](http://localhost:3000/) no navegador para verificar a aplicação em execução.
